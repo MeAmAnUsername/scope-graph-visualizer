@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    
+
     <!-- Load d3.js -->
     <script src="https://d3js.org/d3.v4.js"></script>
   </head>
@@ -116,18 +116,7 @@
 
     }
 
-    const data = {
-      nodes: [
-        {id: 1, label:'Node 1'}, 
-        {id: 2, label:'Node 2'}, 
-        {id: 3, label:'Node 3'}
-      ],
-      links: [
-        { source: 1, target: 2, label: 'P' },
-        { source: 1, target: 3, label: 'ROOT' },
-        { source: 2, target: 3, label: 'P' }
-      ]
-    }
+    const data = {"nodes": [{"id": "#.-s_mod_tree_28-7"}, {"id": "#src/main/test.pie-s_mod_2-14"}, {"id": "#-s_1-1"}, {"id": "#.-s_mod_tree_26-11"}, {"id": "#src/main/test.pie-s_data_def_6-9"}, {"id": "#src/main/test.pie-s_tree_root_61-17"}, {"id": "#.-s_tree_root_24-14"}], "links": [{"source": "#.-s_mod_tree_28-7", "target": "#src/main/test.pie-s_mod_2-14", "label": "FILE"}, {"source": "#src/main/test.pie-s_mod_2-14", "target": "#src/main/test.pie-s_tree_root_61-17", "label": "MODULE_TREE_ROOT"}, {"source": "#src/main/test.pie-s_mod_2-14", "target": "#-s_1-1", "label": "P"}, {"source": "#-s_1-1", "target": "#.-s_tree_root_24-14", "label": "MODULE_TREE_ROOT"}]}
 
     createGraph(data);
 
