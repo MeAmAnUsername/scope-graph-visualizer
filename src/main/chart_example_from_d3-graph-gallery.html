@@ -64,7 +64,7 @@
         .attr('class', 'edgelabel')
         .attr('font-size', 10)
         .attr('fill', '#555555')
-        .text('P')
+        .text(d => d.label)
 
       // Initialize the nodes
       var node = svg
@@ -123,9 +123,9 @@
         {id: 3, label:'Node 3'}
       ],
       links: [
-        { source: 1, target: 2 },
-        { source: 1, target: 3 },
-        { source: 2, target: 3 }
+        { source: 1, target: 2, label: 'P' },
+        { source: 1, target: 3, label: 'ROOT' },
+        { source: 2, target: 3, label: 'P' }
       ]
     }
 
