@@ -85,7 +85,7 @@
       node.append('text')
         .attr('text-anchor', 'middle')
         .attr('alignment-baseline', 'middle')
-        .text(d => d.id)
+        .text(d => d.label)
 
 
       // Let's list the force we wanna apply on the network
@@ -116,6 +116,15 @@
 
     }
 
+    function scopeToLabel(scope) {
+      const matchResult = scope.id.match(/^#[^-]*-([^-]+)-[0-9]+$/);
+      if (matchResult === null) {
+        console.warn("scope id did not match regex: ", scope.id, scope)
+        return scope.id;
+      }
+      return matchResult[1];
+    }
+
     const data = {
       "nodes": [
         {"id": "#.-s_mod_tree_28-7"},
@@ -132,7 +141,8 @@
         {"source": "#-s_1-1", "target": "#.-s_tree_root_24-14", "label": "MODULE_TREE_ROOT"}
       ]
     }
-
+    
+    data.nodes = data.nodes.map(node => ({...node, label: scopeToLabel(node)}))
     createGraph(data);
 
     </script>
