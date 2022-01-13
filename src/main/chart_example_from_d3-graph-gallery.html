@@ -48,10 +48,15 @@
 
 
       node.append("circle")
-          .attr("cx", 0)
-          .attr("cy", 0)
-          .attr("r", 20)
-          .style("fill", "#69b3a2")
+        .attr("cx", 0)
+        .attr("cy", 0)
+        .attr("r", 20)
+        .style("fill", "#69b3a2")
+      
+      node.append("text")
+        .attr('text-anchor', 'middle')
+        .attr('alignment-baseline', 'middle')
+        .text(d => d.id)
 
       // // /* Define the data for the circles */
       // // var elem = svg.selectAll("g")
