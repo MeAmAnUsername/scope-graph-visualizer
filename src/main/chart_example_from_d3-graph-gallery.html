@@ -27,7 +27,21 @@
       .attr('transform',
             `translate(${margin.left},${margin.top})`);
 
-    
+    svg.append('defs').append('marker')
+      .attr('id', 'arrowhead')
+      .attr('viewBox', '-0 -5 10 10')
+      .attr('refX', 13)
+      .attr('refY', 0)
+      .attr('orient', 'auto')
+      .attr('markerWidth', 13)
+      .attr('markerHeight', 13)
+      .attr('xoverflow', 'visible')
+      .append('svg:path')
+      .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+      .attr('fill', '#999')
+      .style('stroke','none');
+
+
     function createGraph(data) {
 
       // Initialize the links
@@ -36,6 +50,7 @@
         .data(data.links)
         .enter()
         .append('line')
+          .attr('marker-end','url(#arrowhead)')
           .style('stroke', '#aaa')
 
 
