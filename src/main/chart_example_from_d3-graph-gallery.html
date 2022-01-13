@@ -41,10 +41,15 @@
 
       // Initialize the nodes
       var node = svg
-        .selectAll("circle")
+        .selectAll("g")
         .data(data.nodes)
         .enter()
-        .append("circle")
+        .append("g")
+
+
+      node.append("circle")
+          .attr("cx", 0)
+          .attr("cy", 0)
           .attr("r", 20)
           .style("fill", "#69b3a2")
 
@@ -128,14 +133,13 @@
       // This function is run at each iteration of the force algorithm, updating the nodes position.
       function ticked() {
         link
-            .attr("x1", function(d) { return d.source.x; })
-            .attr("y1", function(d) { return d.source.y; })
-            .attr("x2", function(d) { return d.target.x; })
-            .attr("y2", function(d) { return d.target.y; });
+          .attr("x1", function(d) { return d.source.x; })
+          .attr("y1", function(d) { return d.source.y; })
+          .attr("x2", function(d) { return d.target.x; })
+          .attr("y2", function(d) { return d.target.y; });
 
         node
-        .attr("cx", function(d) { return d.x+6; })
-        .attr("cy", function(d) { return d.y-6; });
+          .attr("transform", d => `translate(${d.x}, ${d.y})`)
 
         
         
