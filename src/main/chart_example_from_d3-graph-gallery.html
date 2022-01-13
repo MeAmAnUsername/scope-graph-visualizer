@@ -47,20 +47,24 @@
 
       // Initialize the links
       var link = svg
-        .selectAll('line')
+        .selectAll('.link')
         .data(data.links)
         .enter()
-        .append('line')
+        .append('g')
+          .attr('class', 'link')
+
+      var linkLine = link.append('line')
           .attr('marker-end','url(#arrowhead)')
           .style('stroke', '#aaa')
 
 
       // Initialize the nodes
       var node = svg
-        .selectAll('g')
+        .selectAll('.node')
         .data(data.nodes)
         .enter()
         .append('g')
+          .attr('class', 'node')
 
 
       node.append('circle')
@@ -78,7 +82,7 @@
 
       // Let's list the force we wanna apply on the network
       var simulation = d3.forceSimulation(data.nodes)                 // Force algorithm is applied to data.nodes
-          .force('link', d3.forceLink()                               // This force provides links between nodes
+          .force('.link', d3.forceLink()                               // This force provides links between nodes
                 .id(d => d.id)                                        // This provide  the id of a node
                 .links(data.links)                                    // and this the list of links
           )
@@ -88,7 +92,7 @@
 
       // This function is run at each iteration of the force algorithm, updating the nodes position.
       function ticked() {
-        link
+        linkLine
           .attr('x1', d => d.source.x)
           .attr('y1', d => d.source.y)
           .attr('x2', d => d.target.x)
