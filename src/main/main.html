@@ -175,8 +175,8 @@
     }
 
     function keepNode(node) {
-      // keep if it is not an 's_merged' node, or if it has incoming edges
-      return node.label.match(/^s_merged/) === null || data.links.some(link => link.target === node.id)
+      // keep if it is not an 's_merged' or 's_mod' node, or if it is 's_merged' but has incoming edges
+      return (node.label.match(/^s_merged/) === null || data.links.some(link => link.target === node.id)) && node.label.match(/^s_mod/) === null
     }
 
     function nodeExists(node) {
