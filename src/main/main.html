@@ -132,6 +132,11 @@
       return matchResult[1];
     }
 
+    function extractRelationLinks(scope) {
+      // todo
+      return []
+    }
+
     const data = {
       "nodes": [
         {
@@ -217,6 +222,7 @@
       ]
     }
 
+    data.links = data.links.concat(data.nodes.map(node => extractRelationLinks(node)).reduce((acc, cur) => acc.concat(cur)))
     data.nodes = data.nodes.map(node => ({ ...node, label: scopeToLabel(node) }))
     createGraph(data);
 
