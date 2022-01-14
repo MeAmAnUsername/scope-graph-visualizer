@@ -222,6 +222,7 @@
       ]
     }
 
+    data.links.forEach(link => link.type = 'edge')
     data.links = data.links.concat(data.nodes.map(node => extractRelationLinks(node)).reduce((acc, cur) => acc.concat(cur)))
     data.nodes = data.nodes.map(node => ({ ...node, label: scopeToLabel(node) }))
     createGraph(data);
