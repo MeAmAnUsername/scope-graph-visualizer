@@ -148,7 +148,18 @@
         console.warn("scope id did not match regex: ", scope.id, scope)
         return scope.id;
       }
-      return matchResult[1];
+      let label = matchResult[1];
+      if (label.match(/^s_data/)) {
+        const dataName = scope.relations.find(rel => rel.name === 'context')
+          ?.values.find(val => val.value[0].value === 'data_name_unqualified')
+          ?.value[1].value.arguments[0].value;
+        if (dataName) {
+          const modifier = label.match(/^s_data_(([a-z]+)_)+/)[2];
+          const id = label.match(/\d+$/)[0];
+          label = `${dataName} (${modifier} - ${id})`
+        }
+      }
+      return label;
     }
 
     function extractRelationLinks(scope) {
