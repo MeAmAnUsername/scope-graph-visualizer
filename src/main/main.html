@@ -170,7 +170,7 @@
     }
 
     function keepLink(link) {
-      const ignoredRelations = ['root']
+      const ignoredRelations = ['root', 'type_args']
       return ignoredRelations.every(relation => link.label !== relation)
     }
 
