@@ -123,6 +123,25 @@
 
     }
 
+    // Takes an Object describing an ATerm (has a type and a value)
+    // returns an array of strings
+    function extractATermScopes(aTerm) {
+      switch (aTerm.type) {
+        case 'String':
+        case 'Int':
+          return [];
+        case 'ScopeRef':
+          return [aTerm.value]
+        case 'List':
+        case 'Tuple':
+          return aTerm.value.flatMap(extractATermScopes)
+        case 'Constructor':
+          return aTerm.value.arguments.flatMap(extractATermScopes)
+        default:
+          throw new Error(`Unknown ATerm type ${aTerm.type}`)
+      }
+    }
+
     function scopeToLabel(scope) {
       const matchResult = scope.id.match(/^#[^-]*-([^-]+)-[0-9]+$/);
       if (matchResult === null) {
@@ -133,8 +152,17 @@
     }
 
     function extractRelationLinks(scope) {
-      // todo
-      return []
+      console.log(`id: ${scope.id}; `)
+      const res = scope.relations.flatMap(
+        relation => relation.values.flatMap(
+          value => extractATermScopes(value)
+            .map(ref => ({ source: scope.id, target: ref, label: relation.name }))
+            .map(x => {console.log(x); return x})))
+      console.log(`relation links for ${scope.id}: `, res);
+      if(res.some(link => link[0] !== undefined)) {
+        throw new Error(`one of the links is an array`)
+      }
+      return res
     }
 
     const data = {
@@ -223,7 +251,7 @@
     }
 
     data.links.forEach(link => link.type = 'edge')
-    data.links = data.links.concat(data.nodes.map(node => extractRelationLinks(node)).reduce((acc, cur) => acc.concat(cur)))
+    data.links = data.links.concat(data.nodes.flatMap(extractRelationLinks))
     data.nodes = data.nodes.map(node => ({ ...node, label: scopeToLabel(node) }))
     createGraph(data);
 
