@@ -114,8 +114,8 @@
           .attr('y2', d => d.target.y);
 
         linkLabel
-          .attr('x', d => d.source.x * (1 - edgeLabelPlacement) + d.target.x * edgeLabelPlacement)
-          .attr('y', d => d.source.y * (1 - edgeLabelPlacement) + d.target.y * edgeLabelPlacement)
+          .attr('x', d => { const offset = edgeLabelPlacement + 0.02 * d.label.length; return d.source.x * (1 - offset) + d.target.x * offset } )
+          .attr('y', d => { const offset = edgeLabelPlacement + 0.02 * d.label.length; return d.source.y * (1 - offset) + d.target.y * offset } )
 
         node
           .attr('transform', d => `translate(${d.x}, ${d.y})`)
