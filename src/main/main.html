@@ -12,6 +12,7 @@
 <body>
   <!-- Create a div where the graph will take place -->
   <div id="scope-graph-svg"></div>
+    <div id="info"></div>
 
   <script>
 
@@ -29,7 +30,34 @@
       .attr('height', height + margin.top + margin.bottom)
       .append('g')
       .attr('transform',
-        `translate(${margin.left},${margin.top})`);
+        `translate(${margin.left},${margin.top})`)
+
+    var info = d3.select('#info')
+      .append('p')
+      .text('Click on a node to show its relations')
+
+    function prettyprintATerm(aTerm) {
+      switch (aTerm.type) {
+        case 'String':
+        case 'Int':
+        case 'ScopeRef':
+          return `"${aTerm.value}"`;
+        case 'List':
+          return `[${aTerm.value.map(prettyprintATerm).join(', ')}]`
+        case 'Tuple':
+          return `(${aTerm.value.map(prettyprintATerm).join(', ')})`
+        case 'Constructor':
+          return `${aTerm.value.name}(${aTerm.value.arguments.map(prettyprintATerm).join(', ')})`
+        default:
+          throw new Error(`Unknown ATerm type ${aTerm.type}`)
+      }
+    }
+
+    function prettyPrintRelations(relations) {
+      return relations
+        .map(relation => `${relation.name}: ${relation.values.map(prettyprintATerm).join(`<br>${' '.repeat(relation.name.length)}`)}`)
+        .join('<br>')
+    }
 
     svg.append('defs').append('marker')
       .attr('id', 'arrowhead')
@@ -75,6 +103,7 @@
         .enter()
         .append('g')
         .attr('class', 'node')
+        .on('click', d => info.html(prettyPrintRelations(d.relations)))
 
 
       node.append('circle')
