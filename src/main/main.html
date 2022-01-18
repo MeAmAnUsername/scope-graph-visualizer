@@ -30,6 +30,10 @@
     #info p {
       padding: 8px;
     }
+
+    line {
+      stroke: #aaa
+    }
   </style>
 
   <!-- Load d3.js -->
@@ -114,7 +118,6 @@
 
       var linkLine = link.append('line')
         .attr('marker-end', 'url(#arrowhead)')
-        .style('stroke', '#aaa')
 
       var linkLabel = link.append('text')
         .attr('text-anchor', 'middle')
