@@ -4,21 +4,47 @@
 
 <head>
   <meta charset="utf-8">
+  <style>
+    body, div, p, svg {
+      margin: 0px;
+      border: none;
+      padding: 0px;
+      height: 100%;
+      width: 100%;
+    }
+    #wrapper {
+      height: 100vh;
+      display: grid;
+      grid-template-columns: 100%;
+      grid-template-rows: 80% 20%;
+      overflow: auto;
+    }
+    #info {
+      overflow: auto;
+      white-space: nowrap;
+    }
+    #info p {
+      padding: 8px;
+    }
+  </style>
 
   <!-- Load d3.js -->
   <script src="https://d3js.org/d3.v4.js"></script>
 </head>
 
 <body>
-  <!-- Create a div where the graph will take place -->
-  <div id="scope-graph-svg"></div>
+  <div id="wrapper">
+    <!-- Create a div where the graph will take place -->
+    <div id="scope-graph-svg"></div>
     <div id="info"></div>
 
+  </div>
   <script>
 
     // set the dimensions and margins of the graph
     var margin = { top: 10, right: 30, bottom: 30, left: 40 },
-      width = 1080 - margin.left - margin.right,  // width of svg
+      // todo
+      width = 1080 - margin.left - margin.right, // width of svg
       height = 720 - margin.top - margin.bottom, // height of svg
       radius = 10,                               // radius
       edgeLabelPlacement = .4;                   // placement of the label along the length of the edge (0 to 1). Measured from the _centers_ of the nodes
@@ -26,8 +52,8 @@
     // append the svg object to the body of the page
     var svg = d3.select('#scope-graph-svg')
       .append('svg')
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
+      // .attr('width', width + margin.left + margin.right)
+      // .attr('height', height + margin.top + margin.bottom)
       .append('g')
       .attr('transform',
         `translate(${margin.left},${margin.top})`)
@@ -226,10 +252,11 @@ todo:
 - Give relation edges a different style (dashed, slightly lighter?)
 - automatically scale graph and force based on how big the graph gets
 - Alternative / extra: implement dragging the graph. May be better and easier.
-- Click on node to show relations data
 - enter data in field in HTML instead of in source code
 - Some way to make sure labels do not overlap
 - Draw edge labels over nodes
+- Replace scope ids with label names in relation data?
+- Syntax highlighting for relation data? (can use <span>s)
 - custom labels: // this is gonna be way too complicated, skip for now
   Textarea for input
   Space-separated matchers each line. Use first line where all matchers match. If none match, use scope.id
