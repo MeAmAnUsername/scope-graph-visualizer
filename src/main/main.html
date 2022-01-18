@@ -32,7 +32,11 @@
     }
 
     line {
-      stroke: #aaa
+      stroke: #999
+    }
+    line.relation {
+      stroke-dasharray: 4 2;
+      stroke: #ccc
     }
   </style>
 
@@ -118,6 +122,7 @@
 
       var linkLine = link.append('line')
         .attr('marker-end', 'url(#arrowhead)')
+        .attr('class', d => d.type)
 
       var linkLabel = link.append('text')
         .attr('text-anchor', 'middle')
@@ -226,7 +231,7 @@
       return scope.relations.flatMap(
         relation => relation.values.flatMap(
           value => extractATermScopes(value).map(
-            ref => ({ source: scope.id, target: ref, label: relation.name }))))
+            ref => ({ source: scope.id, target: ref, label: relation.name, type: 'relation' }))))
     }
 
     function keepLink(link) {
@@ -254,7 +259,6 @@
 
 /*
 todo:
-- Give relation edges a different style (dashed, slightly lighter?)
 - Implement dragging the graph.
 - Automatically scale graph and force based on how big the graph gets
 - enter data in field in HTML instead of in source code
