@@ -91,7 +91,7 @@
 
     function prettyPrintRelations(relations) {
       return relations
-        .map(relation => `${relation.name}: ${relation.values.map(prettyprintATerm).join(`<br>${' '.repeat(relation.name.length)}`)}`)
+        .map(relation => `${relation.name}: ${relation.values.map(prettyprintATerm).join(`<br>${' '.repeat(relation.name.length + 2)}`)}`)
         .join('<br>')
     }
 
@@ -139,7 +139,7 @@
         .enter()
         .append('g')
         .attr('class', 'node')
-        .on('click', d => info.html(`${d.label}<br>${prettyPrintRelations(d.relations)}`))
+        .on('click', d => info.html(`<pre>${d.label}<br>${prettyPrintRelations(d.relations)}</pre>`))
 
 
       node.append('circle')
@@ -259,7 +259,6 @@
 
 /*
 todo:
-- Fix whitespace before non-first entries in relations in info panel
 - Implement dragging the graph.
 - Automatically scale graph and force based on how big the graph gets
 - enter data in field in HTML instead of in source code
