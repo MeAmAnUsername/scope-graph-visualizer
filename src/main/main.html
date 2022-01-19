@@ -69,7 +69,7 @@
       .append('g')
 
     var info = d3.select('#info')
-      .append('p')
+      .append('pre')
       .text('Click on a node to show its relations')
 
     function prettyprintATerm(aTerm) {
@@ -139,7 +139,7 @@
         .enter()
         .append('g')
         .attr('class', 'node')
-        .on('click', d => info.html(`<pre>${d.label}<br>${prettyPrintRelations(d.relations)}</pre>`))
+        .on('click', d => info.html(`${d.label}<br>${prettyPrintRelations(d.relations)}`))
 
 
       node.append('circle')
