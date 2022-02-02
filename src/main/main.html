@@ -260,18 +260,20 @@
 /*
 todo:
 - Implement dragging the graph.
+- Switch info back to <p>, but preserve whitespace. See https://stackoverflow.com/questions/8994516/html-css-best-practice-for-preserving-white-space-on-certain-elements
 - Automatically scale graph and force based on how big the graph gets
 - enter data in field in HTML instead of in source code
 - Some way to make sure labels do not overlap
 - Draw edge labels over nodes
 - Draw transparent background behind labels to improve readability (transparent background can be same color as graph background). See https://stackoverflow.com/questions/15500894/background-color-of-text-in-svg
+- Better drawing of self-loops
 - Highlight the node for which the relation data is shown (the 'selected node')
 - Highlight edge and edge label on mouseover
 - Some way to highlight all edges of a certain type (checkboxes in config panel on right, on click, on mouseover?)
 - Highlight node and node label on mouseover
 - Some way to highlight all edges of a certain type (checkboxes in config panel on right, on click, on mouseover?)
-- Make individual nodes draggable to let user improve graph layout manually
-- Show edges of a scope in info panel?
+- Make individual nodes draggable to let user improve graph layout manually. See https://stackoverflow.com/questions/46577426/d3-force-directed-graph-drag-and-zoom-functions-not-working
+- Show edges of a scope in info panel
 - Replace scope ids with label names in relation data?
 - Make scope ids/labels in info panel clickable
 - Highlight scope in graph on mouseover of scope ids/labels in info panel
@@ -279,6 +281,8 @@ todo:
 - Search: textbox to search for a particular scope. search both label and id, highlight all scopes that match. Arrows to point towards off-screen matches?
 - custom scope filtering
 - custom edge/relation filtering (make filtered relations a more muted color in info panel)
+- Exploration mode: select a node to begin. Shows only selected nodes and nodes connected to the selected nodes. Show when some connected nodes are hidden by scope filters (dashed node with the text "X connected nodes hidden"? Flash scope filter text box on click, show list of hidden scopes in info box. May not scale well when many scopes selected, although might work with shorted edge and a bit muted / transparent color).
+- Some way to save a node to quickly return to it later. Click with middle mouse button to save, gets saved in list in config panel?
 - Allow collapsing ATerms in info panel (collapsed by default?)
 - custom labels: // this is gonna be way too complicated, skip for now
   Textarea for input
@@ -295,6 +299,8 @@ todo:
     scope.relations[context]._1 "data_name_unqualified" | scope.relations[context]._2. 
     scope.id.match(/^#[^-]*-([^-]+)-[0-9]+$/)  // uses a regex on 'scope.id'
   ```
+- Keep graph up to date with actual file system. Provide option to either reload automatically or show a message bar that tells user that the graph is outdated.
+  Webserver: start a server with a static address where it statically provides the generated JSON file (or better: keeps JSON file and scope graph file up to date with backing source).
 */
 
 
