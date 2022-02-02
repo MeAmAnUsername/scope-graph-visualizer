@@ -139,7 +139,7 @@
         .enter()
         .append('g')
         .attr('class', 'node')
-        .on('click', d => info.html(`${d.label}<br>${prettyPrintRelations(d.relations)}`))
+        .on('click', d => info.html(`${d.label} — ${d.id}<br>${prettyPrintRelations(d.relations)}`))
 
 
       node.append('circle')
